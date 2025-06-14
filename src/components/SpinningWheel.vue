@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed } from "vue"
 
-import { FULL_CIRCLE, HALF_CIRCLE, QUARTER_CIRCLE, THREE_QUARTER_CIRCLE, MIN_SEGMENTS, DEFAULT_COLORS } from "@/constants"
+import { watchEffect } from "vue"
+
+import { useSpin } from "@/composables/use-spin"
+import { HALF_CIRCLE, QUARTER_CIRCLE, THREE_QUARTER_CIRCLE, MIN_SEGMENTS, DEFAULT_COLORS } from "@/constants"
 
 import type { Segment } from "@/types"
 
@@ -21,21 +23,26 @@ const DEGREES_TO_RADIANS = Math.PI / HALF_CIRCLE
 
 type Props = {
   segments: Segment[]
-  isSpinning: boolean
-  rotation: number
 }
 
 const props = defineProps<Props>()
 
 type Emits = {
   spin: []
+  winner: [value: string]
 }
 
 const emit = defineEmits<Emits>()
 
 const colors = DEFAULT_COLORS
 
-const segmentAngle = computed(() => FULL_CIRCLE / props.segments.length)
+const {
+  isSpinning,
+  rotation,
+  spin,
+  segmentAngle,
+  winner,
+} = useSpin(props.segments)
 
 const getSegmentColor = (index: number): string => {
   return props.segments[index].color || colors[index % colors.length]
@@ -76,9 +83,9 @@ const getTextTransform = (index: number): string => {
   return `rotate(${angle > QUARTER_CIRCLE && angle < THREE_QUARTER_CIRCLE ? angle + HALF_CIRCLE : angle}, ${x}, ${y})`
 }
 
-const handleSpin = (): void => {
-  emit("spin")
-}
+watchEffect(() => {
+  emit("winner", winner.value)
+})
 </script>
 
 <template>
@@ -128,7 +135,7 @@ const handleSpin = (): void => {
       class="cursor-pointer rounded-full border-none bg-gradient-to-r from-wheel-red to-wheel-red-dark px-10 py-4 text-xl font-bold uppercase tracking-wider text-white shadow-button transition-all duration-300 hover:-translate-y-0.5 hover:shadow-button-hover active:translate-y-0 disabled:transform-none disabled:cursor-not-allowed disabled:opacity-60"
       :class="{ 'animate-pulse-custom': isSpinning }"
       :disabled="isSpinning || segments.length < MIN_SEGMENTS"
-      @click="handleSpin"
+      @click="spin"
     >
       {{ isSpinning ? 'Spinning...' : 'SPIN!' }}
     </button>

@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { ref, watchEffect } from "vue"
 
 import SegmentControls from "./components/SegmentControls.vue"
 import SpinningWheel from "./components/SpinningWheel.vue"
 import WinnerDisplay from "./components/WinnerDisplay.vue"
-import { FULL_CIRCLE, MAX_SEGMENTS, MIN_SEGMENTS } from "./constants"
+import { useSpin } from "./composables/use-spin"
+import { MAX_SEGMENTS, MIN_SEGMENTS } from "./constants"
 
 import type { Segment } from "./types"
-
-const SHOW_WINNER_DELAY = 200
-const SPINNING_DURATION = 3000
 
 const segments = ref<Segment[]>([
   { name: "Option 1" },
@@ -19,13 +17,6 @@ const segments = ref<Segment[]>([
   { name: "Option 5" },
   { name: "Option 6" },
 ])
-
-const rotation = ref(0)
-const isSpinning = ref(false)
-const winner = ref("")
-const showWinner = ref(false)
-
-const segmentAngle = computed(() => FULL_CIRCLE / segments.value.length)
 
 const addSegment = (name: string): void => {
   if (segments.value.length < MAX_SEGMENTS) {
@@ -49,37 +40,15 @@ const updateSegmentColor = (index: number, color: string): void => {
   segments.value[index].color = color
 }
 
-const spin = (): void => {
-  if (isSpinning.value || segments.value.length < MIN_SEGMENTS) {return}
-
-  isSpinning.value = true
-  showWinner.value = false
-  winner.value = ""
-
-  // Generate random spin (3-6 full rotations + random angle)
-  const minSpins = 3
-  const maxSpins = 6
-  const spins = minSpins + Math.random() * (maxSpins - minSpins)
-  const finalAngle = Math.random() * FULL_CIRCLE
-  const totalRotation = spins * FULL_CIRCLE + finalAngle
-
-  rotation.value += totalRotation
-
-  // Calculate winner after spin completes
-  setTimeout(() => {
-    const normalizedAngle = (FULL_CIRCLE - (rotation.value % FULL_CIRCLE)) % FULL_CIRCLE
-    const winnerIndex = Math.floor(normalizedAngle / segmentAngle.value)
-    const selectedSegment = segments.value[winnerIndex]
-    winner.value = typeof selectedSegment === "string" ? selectedSegment : selectedSegment.name
-
-    isSpinning.value = false
-
-    // Show winner with delay for better UX
-    setTimeout(() => {
-      showWinner.value = true
-    }, SHOW_WINNER_DELAY)
-  }, SPINNING_DURATION)
+const winner = ref("")
+const onWinner = (value: string): void => {
+  winner.value = value
 }
+
+const isWinnerDisplayVisible = ref(false)
+watchEffect(() => {
+  isWinnerDisplayVisible.value = !!winner.value && winner.value.trim() !== ""
+})
 </script>
 
 <template>
@@ -92,15 +61,13 @@ const spin = (): void => {
       <!-- Spinning Wheel Component -->
       <SpinningWheel
         :segments="segments"
-        :is-spinning="isSpinning"
-        :rotation="rotation"
-        @spin="spin"
+        @winner="onWinner"
       />
 
       <!-- Winner Display Component -->
       <WinnerDisplay
         :winner="winner"
-        :show-winner="showWinner"
+        :is-visible="isWinnerDisplayVisible"
       />
 
       <!-- Segment Controls Component -->
