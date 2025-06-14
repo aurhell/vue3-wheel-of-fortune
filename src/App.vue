@@ -17,25 +17,25 @@ const segments = ref<Segment[]>([
   { name: "Option 6" },
 ])
 
-const addSegment = (name: string): void => {
+const onSegmentAdd = (name: string): void => {
   if (segments.value.length < MAX_SEGMENTS) {
     segments.value.push({ name: name.trim() })
   }
 }
 
-const removeSegment = (index: number): void => {
+const onSegmentRemove = (index: number): void => {
   if (segments.value.length > MIN_SEGMENTS) {
     segments.value.splice(index, 1)
   }
 }
 
-const editSegment = (index: number, segment: string): void => {
+const onSegmentUpdateName = (index: number, segment: string): void => {
   if (segment.trim() && segments.value.length < MAX_SEGMENTS) {
     segments.value[index].name = segment.trim()
   }
 }
 
-const updateSegmentColor = (index: number, color: HexColor): void => {
+const onSegmentUpdateColor = (index: number, color: HexColor): void => {
   segments.value[index].color = color
 }
 
@@ -72,10 +72,10 @@ watchEffect(() => {
       <!-- Segment Controls Component -->
       <SegmentControls
         :segments="segments"
-        @add-segment="addSegment"
-        @remove-segment="removeSegment"
-        @update:name="editSegment"
-        @update:color="updateSegmentColor"
+        @segment:add="onSegmentAdd"
+        @segment:remove="onSegmentRemove"
+        @segment:update:name="onSegmentUpdateName"
+        @segment:update:color="onSegmentUpdateColor"
       />
     </div>
   </div>

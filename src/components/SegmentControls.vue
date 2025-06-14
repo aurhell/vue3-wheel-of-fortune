@@ -14,10 +14,10 @@ type Props = {
 const props = defineProps<Props>()
 
 type Emits = {
-  addSegment: [name: string]
-  removeSegment: [index: number]
-  "update:name": [index: number, name: string]
-  "update:color": [index: number, color: HexColor]
+  "segment:add": [name: string]
+  "segment:remove": [index: number]
+  "segment:update:name": [index: number, name: string]
+  "segment:update:color": [index: number, color: HexColor]
 }
 
 const emit = defineEmits<Emits>()
@@ -26,23 +26,23 @@ const newSegment = ref("")
 
 const handleAddSegment = (): void => {
   if (newSegment.value.trim() && props.segments.length < MAX_SEGMENTS) {
-    emit("addSegment", newSegment.value.trim())
+    emit("segment:add", newSegment.value.trim())
     newSegment.value = ""
   }
 }
 
-const handleRemoveSegment = (index: number): void => {
-  emit("removeSegment", index)
+const onSegmentRemove = (index: number): void => {
+  emit("segment:remove", index)
 }
 
-const handleUpdateSegment = (index: number, segment: string): void => {
+const onSegmentUpdateName = (index: number, segment: string): void => {
   if (segment.trim()) {
-    emit("update:name", index, segment.trim())
+    emit("segment:update:name", index, segment.trim())
   }
 }
 
-const handleUpdateColor = (index: number, color: HexColor): void => {
-  emit("update:color", index, color)
+const onSegmentUpdateColor = (index: number, color: HexColor): void => {
+  emit("segment:update:color", index, color)
 }
 </script>
 
@@ -83,9 +83,9 @@ const handleUpdateColor = (index: number, color: HexColor): void => {
 
     <SegmentList
       :segments="segments"
-      @remove-segment="handleRemoveSegment"
-      @update:name="handleUpdateSegment"
-      @update:color="handleUpdateColor"
+      @segment:remove="onSegmentRemove"
+      @segment:update:name="onSegmentUpdateName"
+      @segment:update:color="onSegmentUpdateColor"
     />
 
     <p class="m-0 text-center text-sm text-gray-500">

@@ -12,15 +12,15 @@ type Props = {
 const props = defineProps<Props>()
 
 type Emits = {
-  remove: [index: number]
-  "update:name": [index: number, name: string]
-  "update:color": [index: number, color: HexColor]
+  "segment:remove": [index: number]
+  "segment:update:name": [index: number, name: string]
+  "segment:update:color": [index: number, color: HexColor]
 }
 
 const emit = defineEmits<Emits>()
 
-const handleRemove = (): void => {
-  emit("remove", props.index)
+const onSegmentRemove = (): void => {
+  emit("segment:remove", props.index)
 }
 
 const segmentInput = ref<HTMLInputElement | null>(null)
@@ -37,12 +37,12 @@ const edit = () => {
 
 const handleEdit = (): void => {
   isEditing.value = false
-  emit("update:name", props.index, segmentText.value.trim())
+  emit("segment:update:name", props.index, segmentText.value.trim())
 }
 
 const handleColorChange = (event: Event): void => {
   const target = event.target as HTMLInputElement
-  emit("update:color", props.index, target.value as HexColor)
+  emit("segment:update:color", props.index, target.value as HexColor)
 }
 </script>
 
@@ -99,7 +99,7 @@ const handleColorChange = (event: Event): void => {
         <button
           class="flex size-6 cursor-pointer items-center justify-center rounded-full border-none bg-wheel-red text-base font-bold text-white transition-all duration-300 hover:scale-110 hover:bg-wheel-red-hover"
           title="Remove"
-          @click="handleRemove"
+          @click="onSegmentRemove"
         >
           ×
         </button>
