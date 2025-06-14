@@ -4,7 +4,6 @@ import { ref, watchEffect } from "vue"
 import SegmentControls from "./components/SegmentControls.vue"
 import SpinningWheel from "./components/SpinningWheel.vue"
 import WinnerDisplay from "./components/WinnerDisplay.vue"
-import { useSpin } from "./composables/use-spin"
 import { MAX_SEGMENTS, MIN_SEGMENTS } from "./constants"
 
 import type { Segment } from "./types"

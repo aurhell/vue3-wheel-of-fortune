@@ -189,6 +189,7 @@ export default defineConfigWithVueTs(
         },
       ],
       "no-sequences": "error",
+      "no-unused-vars": "error",
       "no-useless-call": "error",
       "no-useless-return": "error",
       "no-var": "error",
