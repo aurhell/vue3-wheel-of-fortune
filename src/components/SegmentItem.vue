@@ -60,7 +60,10 @@ const handleColorChange = (event: Event): void => {
         v-model="segmentText"
         type="text"
         class="flex-1 bg-transparent text-base font-medium text-gray-800 outline-none"
-        :class="{ 'underline underline-offset-2': isEditing }"
+        :class="{
+          'border-b-2 border-gray-300 focus:border-wheel-primary': isEditing,
+          'cursor-default': !isEditing
+        }"
         :readonly="!isEditing"
         :placeholder="isEditing ? 'Edit segment...' : 'Double-click to edit'"
 
