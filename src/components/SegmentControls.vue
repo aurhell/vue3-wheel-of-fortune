@@ -5,7 +5,7 @@ import { MAX_SEGMENTS } from "@/constants"
 
 import SegmentList from "./SegmentList.vue"
 
-import type { Segment } from "@/types"
+import type { HexColor, Segment } from "@/types"
 
 type Props = {
   segments: Segment[]
@@ -17,7 +17,7 @@ type Emits = {
   addSegment: [name: string]
   removeSegment: [index: number]
   "update:name": [index: number, name: string]
-  "update:color": [index: number, color: string]
+  "update:color": [index: number, color: HexColor]
 }
 
 const emit = defineEmits<Emits>()
@@ -41,7 +41,7 @@ const handleUpdateSegment = (index: number, segment: string): void => {
   }
 }
 
-const handleUpdateColor = (index: number, color: string): void => {
+const handleUpdateColor = (index: number, color: HexColor): void => {
   emit("update:color", index, color)
 }
 </script>

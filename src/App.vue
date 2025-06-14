@@ -6,7 +6,7 @@ import SpinningWheel from "./components/SpinningWheel.vue"
 import WinnerDisplay from "./components/WinnerDisplay.vue"
 import { MAX_SEGMENTS, MIN_SEGMENTS } from "./constants"
 
-import type { Segment } from "./types"
+import type { HexColor, Segment } from "./types"
 
 const segments = ref<Segment[]>([
   { name: "Option 1" },
@@ -35,7 +35,7 @@ const editSegment = (index: number, segment: string): void => {
   }
 }
 
-const updateSegmentColor = (index: number, color: string): void => {
+const updateSegmentColor = (index: number, color: HexColor): void => {
   segments.value[index].color = color
 }
 

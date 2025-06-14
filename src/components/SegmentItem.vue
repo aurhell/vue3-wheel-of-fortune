@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 
-import type { Segment } from "@/types"
+import type { HexColor, Segment } from "@/types"
 
 type Props = {
   segment: Segment
@@ -14,7 +14,7 @@ const props = defineProps<Props>()
 type Emits = {
   remove: [index: number]
   "update:name": [index: number, name: string]
-  "update:color": [index: number, color: string]
+  "update:color": [index: number, color: HexColor]
 }
 
 const emit = defineEmits<Emits>()
@@ -42,7 +42,7 @@ const handleEdit = (): void => {
 
 const handleColorChange = (event: Event): void => {
   const target = event.target as HTMLInputElement
-  emit("update:color", props.index, target.value)
+  emit("update:color", props.index, target.value as HexColor)
 }
 </script>
 
@@ -84,7 +84,7 @@ const handleColorChange = (event: Event): void => {
         <input
           type="color"
           :value="color"
-          class="size-8 cursor-pointer rounded-full border-2 border-white shadow-md transition-transform duration-200 hover:scale-110"
+          class="size-8 cursor-pointer bg-transparent transition-transform duration-200 hover:scale-110"
           @input="handleColorChange"
         >
 
