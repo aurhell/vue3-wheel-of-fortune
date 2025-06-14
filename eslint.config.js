@@ -46,7 +46,10 @@ export default defineConfigWithVueTs(
           "multiline": "always",
         },
       ],
-      "vue/multi-word-component-names": "warn",
+      "vue/multi-word-component-names": [
+        "warn",
+        { ignores: ["Tooltip"] },
+      ],
       "vue/no-restricted-component-options": [
         "error",
         "mixins",
