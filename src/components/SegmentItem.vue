@@ -2,6 +2,7 @@
 import { ref } from "vue"
 
 import Tooltip from "@/components/ui/Tooltip.vue"
+import { MIN_SEGMENTS } from "@/constants"
 
 import type { HexColor, Segment } from "@/types"
 
@@ -9,6 +10,7 @@ type Props = {
   segment: Segment
   index: number
   color: string
+  canRemove?: boolean
 }
 
 const props = defineProps<Props>()
@@ -97,7 +99,11 @@ const handleColorChange = (event: Event): void => {
       <Tooltip>
         <template #trigger>
           <button
-            class="flex size-6 cursor-pointer items-center justify-center rounded-full border-none bg-wheel-red text-base font-bold text-white transition-all duration-300 hover:scale-110 hover:bg-wheel-red-hover"
+            :class="[
+              'flex size-6 cursor-pointer items-center justify-center rounded-full border-none bg-wheel-red text-base font-bold text-white transition-all duration-300 hover:scale-110 hover:bg-wheel-red-hover',
+              { 'cursor-not-allowed opacity-50 hover:scale-100 hover:bg-wheel-red': !props.canRemove }
+            ]"
+            :disabled="!props.canRemove"
             title="Remove"
             @click="onSegmentRemove"
           >
@@ -105,7 +111,7 @@ const handleColorChange = (event: Event): void => {
           </button>
         </template>
         <template #content>
-          Click to remove segment
+          {{ props.canRemove ? 'Click to remove segment' : `You cannot have less than ${MIN_SEGMENTS} segments` }}
         </template>
       </Tooltip>
     </div>

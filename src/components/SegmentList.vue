@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DEFAULT_COLORS } from "@/constants"
+import { DEFAULT_COLORS, MIN_SEGMENTS } from "@/constants"
 
 import SegmentItem from "./SegmentItem.vue"
 
@@ -46,6 +46,7 @@ const onSegmentUpdateColor = (index: number, color: HexColor): void => {
       :segment="segment"
       :index="index"
       :color="getSegmentColor(index)"
+      :can-remove="props.segments.length - 1 >= MIN_SEGMENTS"
       @segment:remove="onSegmentRemove"
       @segment:update:name="onSegmentUpdateName"
       @segment:update:color="onSegmentUpdateColor"
