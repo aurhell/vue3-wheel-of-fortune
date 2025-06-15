@@ -135,6 +135,7 @@ watchEffect(() => {
       class="cursor-pointer rounded-full border-none bg-gradient-to-r from-wheel-red to-wheel-red-dark px-10 py-4 text-xl font-bold uppercase tracking-wider text-white shadow-button transition-all duration-300 hover:-translate-y-0.5 hover:shadow-button-hover active:translate-y-0 disabled:transform-none disabled:cursor-not-allowed disabled:opacity-60"
       :class="{ 'animate-pulse-custom': isSpinning }"
       :disabled="isSpinning || segments.length < MIN_SEGMENTS"
+      aria-label="Spin the wheel button"
       @click="spin"
     >
       {{ isSpinning ? 'Spinning...' : 'SPIN!' }}

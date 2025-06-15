@@ -39,6 +39,7 @@ const edit = () => {
 }
 
 const handleEdit = (): void => {
+  if (!isEditing.value) return
   isEditing.value = false
   emit("segment:update:name", props.index, segmentText.value.trim())
 }
@@ -63,6 +64,7 @@ const handleColorChange = (event: Event): void => {
           ref="segmentInput"
           v-model="segmentText"
           name="segmentName"
+          aria-label="Segment name"
           type="text"
           class="flex-1 bg-transparent text-base font-medium text-gray-800 outline-none"
           :class="{
@@ -71,9 +73,8 @@ const handleColorChange = (event: Event): void => {
           }"
           :readonly="!isEditing"
           :placeholder="isEditing ? 'Edit segment...' : 'Double-click to edit'"
-
           @blur="handleEdit"
-          @keyup.enter="handleEdit"
+          @keyup.enter="isEditing ? handleEdit() : edit()"
           @keyup.esc="handleEdit"
         >
       </template>
@@ -87,6 +88,7 @@ const handleColorChange = (event: Event): void => {
         <template #trigger>
           <input
             type="color"
+            aria-label="Segment color"
             :value="color"
             class="size-8 cursor-pointer bg-transparent transition-transform duration-200 hover:scale-110"
             @input="handleColorChange"
@@ -106,6 +108,7 @@ const handleColorChange = (event: Event): void => {
             ]"
             :disabled="!props.canRemove"
             title="Remove"
+            aria-label="Remove segment button"
             @click="onSegmentRemove"
           >
             ×

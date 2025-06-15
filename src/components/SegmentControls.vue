@@ -59,6 +59,7 @@ const onSegmentUpdateColor = (index: number, color: HexColor): void => {
           <input
             v-model="newSegment"
             name="newSegment"
+            aria-label="New segment name"
             type="text"
             :disabled="segments.length >= MAX_SEGMENTS"
             placeholder="Enter a new option..."
@@ -77,6 +78,7 @@ const onSegmentUpdateColor = (index: number, color: HexColor): void => {
 
       <button
         :disabled="!newSegment.trim() || props.segments.length >= MAX_SEGMENTS"
+        aria-label="Add a new segment button"
         class="cursor-pointer rounded-xl border-none bg-gradient-to-r from-wheel-primary to-wheel-secondary px-6 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50 md:self-start"
         @click="handleAddSegment"
       >
