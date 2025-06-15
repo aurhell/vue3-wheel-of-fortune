@@ -62,6 +62,7 @@ const handleColorChange = (event: Event): void => {
         <input
           ref="segmentInput"
           v-model="segmentText"
+          name="segmentName"
           type="text"
           class="flex-1 bg-transparent text-base font-medium text-gray-800 outline-none"
           :class="{

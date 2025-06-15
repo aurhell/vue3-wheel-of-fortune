@@ -58,6 +58,8 @@ const onSegmentUpdateColor = (index: number, color: HexColor): void => {
         <template #trigger>
           <input
             v-model="newSegment"
+            name="newSegment"
+            type="text"
             :disabled="segments.length >= MAX_SEGMENTS"
             placeholder="Enter a new option..."
             maxlength="20"
