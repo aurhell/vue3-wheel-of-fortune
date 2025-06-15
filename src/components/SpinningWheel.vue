@@ -1,13 +1,10 @@
 <script setup lang="ts">
+import { inject } from "vue"
 
-import { watchEffect } from "vue"
-
-import { useSpin } from "@/composables/use-spin"
-import { HALF_CIRCLE, QUARTER_CIRCLE, THREE_QUARTER_CIRCLE, MIN_SEGMENTS, DEFAULT_COLORS } from "@/constants"
+import { HALF_CIRCLE, QUARTER_CIRCLE, THREE_QUARTER_CIRCLE, DEFAULT_COLORS } from "@/constants"
 
 import type { Segment } from "@/types"
 
-// Constants
 const SVG_SIZE = 300
 // eslint-disable-next-line no-magic-numbers
 const WHEEL_CENTER_X = SVG_SIZE / 2
@@ -27,29 +24,21 @@ type Props = {
 
 const props = defineProps<Props>()
 
-type Emits = {
-  spin: []
-  winner: [value: string]
-}
-
-const emit = defineEmits<Emits>()
-
 const colors = DEFAULT_COLORS
 
-const {
-  isSpinning,
-  rotation,
-  spin,
-  segmentAngle,
-  winner,
-} = useSpin(props.segments)
+const isSpinning = inject<boolean>("isSpinning")
+const rotation = inject<number>("rotation")
+const segmentAngle = inject<{ value: number }>("segmentAngle")
 
 const getSegmentColor = (index: number): string => {
   return props.segments[index].color || colors[index % colors.length]
 }
 
 const getSegmentPath = (index: number): string => {
-  const angle = segmentAngle.value
+  const angle = segmentAngle?.value
+  if (!angle) {
+    throw new Error("segmentAngle is not provided")
+  }
   const startAngle = (index * angle - QUARTER_CIRCLE) * DEGREES_TO_RADIANS
   const endAngle = ((index + 1) * angle - QUARTER_CIRCLE) * DEGREES_TO_RADIANS
 
@@ -64,33 +53,38 @@ const getSegmentPath = (index: number): string => {
 }
 
 const getTextX = (index: number): number => {
+  if (!segmentAngle) {
+    throw new Error("segmentAngle is not provided")
+  }
   // eslint-disable-next-line no-magic-numbers
   const angle = (index * segmentAngle.value + segmentAngle.value / 2 - QUARTER_CIRCLE) * DEGREES_TO_RADIANS
   return WHEEL_CENTER_X + TEXT_RADIUS * Math.cos(angle)
 }
 
 const getTextY = (index: number): number => {
+  if (!segmentAngle) {
+    throw new Error("segmentAngle is not provided")
+  }
   // eslint-disable-next-line no-magic-numbers
   const angle = (index * segmentAngle.value + segmentAngle.value / 2 - QUARTER_CIRCLE) * DEGREES_TO_RADIANS
   return WHEEL_CENTER_Y + TEXT_RADIUS * Math.sin(angle)
 }
 
 const getTextTransform = (index: number): string => {
+  if (!segmentAngle) {
+    throw new Error("segmentAngle is not provided")
+  }
   // eslint-disable-next-line no-magic-numbers
   const angle = index * segmentAngle.value + segmentAngle.value / 2 - QUARTER_CIRCLE
   const x = getTextX(index)
   const y = getTextY(index)
   return `rotate(${angle > QUARTER_CIRCLE && angle < THREE_QUARTER_CIRCLE ? angle + HALF_CIRCLE : angle}, ${x}, ${y})`
 }
-
-watchEffect(() => {
-  emit("winner", winner.value)
-})
 </script>
 
 <template>
-  <div class="mb-12 flex flex-col items-center">
-    <div class="relative mb-8">
+  <div class="flex flex-col items-center">
+    <div class="relative">
       <svg
         class="wheel-spin-transition xs:size-[200px] size-[300px] rounded-full sm:size-[250px] md:size-[300px]"
         :class="{ 'wheel-spin-transition': isSpinning }"
@@ -129,17 +123,6 @@ watchEffect(() => {
       <!-- Pointer -->
       <div class="absolute -top-2.5 left-1/2 z-10 size-0 -translate-x-1/2 transform border-x-[15px] border-t-[30px] border-x-transparent border-t-wheel-red" />
     </div>
-
-    <!-- Spin Button -->
-    <button
-      class="cursor-pointer rounded-full border-none bg-gradient-to-r from-wheel-red to-wheel-red-dark px-10 py-4 text-xl font-bold uppercase tracking-wider text-white shadow-button transition-all duration-300 hover:-translate-y-0.5 hover:shadow-button-hover active:translate-y-0 disabled:transform-none disabled:cursor-not-allowed disabled:opacity-60"
-      :class="{ 'animate-pulse-custom': isSpinning }"
-      :disabled="isSpinning || segments.length < MIN_SEGMENTS"
-      aria-label="Spin the wheel button"
-      @click="spin"
-    >
-      {{ isSpinning ? 'Spinning...' : 'SPIN!' }}
-    </button>
   </div>
 </template>
 

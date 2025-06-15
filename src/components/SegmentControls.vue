@@ -48,7 +48,7 @@ const onSegmentUpdateColor = (index: number, color: HexColor): void => {
 </script>
 
 <template>
-  <div class="rounded-3xl bg-white p-8 shadow-custom sm:p-4 md:p-6">
+  <div class="w-full rounded-3xl bg-white p-8 shadow-custom sm:p-4 md:p-6">
     <h3 class="mb-6 text-center text-2xl font-semibold text-gray-800">
       Customize Your Wheel
     </h3>

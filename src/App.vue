@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue"
+import { ref } from "vue"
 
-import SegmentControls from "./components/SegmentControls.vue"
-import SpinningWheel from "./components/SpinningWheel.vue"
-import WinnerDisplay from "./components/WinnerDisplay.vue"
-import { MAX_SEGMENTS, MIN_SEGMENTS } from "./constants"
+import WheelOfFortune from "./components/WheelOfFortune.vue"
 
-import type { HexColor, Segment } from "./types"
+import type { Segment } from "./types"
+
+const wheelRef = ref<InstanceType<typeof WheelOfFortune> | null>(null)
 
 const segments = ref<Segment[]>([
   { name: "Option 1" },
@@ -17,37 +16,10 @@ const segments = ref<Segment[]>([
   { name: "Option 6" },
 ])
 
-const onSegmentAdd = (name: string): void => {
-  if (segments.value.length < MAX_SEGMENTS) {
-    segments.value.push({ name: name.trim() })
-  }
-}
-
-const onSegmentRemove = (index: number): void => {
-  if (segments.value.length > MIN_SEGMENTS) {
-    segments.value.splice(index, 1)
-  }
-}
-
-const onSegmentUpdateName = (index: number, segment: string): void => {
-  if (segment.trim() && segments.value.length < MAX_SEGMENTS) {
-    segments.value[index].name = segment.trim()
-  }
-}
-
-const onSegmentUpdateColor = (index: number, color: HexColor): void => {
-  segments.value[index].color = color
-}
-
-const winner = ref("")
 const onWinner = (value: string): void => {
-  winner.value = value
+  if (value.trim() === "") return
+  console.log(`Winner: ${value}`)
 }
-
-const isWinnerDisplayVisible = ref(false)
-watchEffect(() => {
-  isWinnerDisplayVisible.value = !!winner.value && winner.value.trim() !== ""
-})
 </script>
 
 <template>
@@ -57,25 +29,13 @@ watchEffect(() => {
         🎰 Wheel of fortune
       </h1>
 
-      <!-- Spinning Wheel Component -->
-      <SpinningWheel
+      <WheelOfFortune
+        ref="wheelRef"
         :segments="segments"
+        with-spin-button
+        with-winner-display
+        with-controls
         @winner="onWinner"
-      />
-
-      <!-- Winner Display Component -->
-      <WinnerDisplay
-        :winner="winner"
-        :is-visible="isWinnerDisplayVisible"
-      />
-
-      <!-- Segment Controls Component -->
-      <SegmentControls
-        :segments="segments"
-        @segment:add="onSegmentAdd"
-        @segment:remove="onSegmentRemove"
-        @segment:update:name="onSegmentUpdateName"
-        @segment:update:color="onSegmentUpdateColor"
       />
     </div>
   </div>

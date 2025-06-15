@@ -10,7 +10,7 @@ defineProps<Props>()
 <template>
   <div
     v-if="winner"
-    class="mb-8 translate-y-5 rounded-3xl bg-white p-8 text-center opacity-0 shadow-custom transition-all duration-500 ease-out"
+    class="w-full translate-y-5 rounded-3xl bg-white p-8 text-center opacity-0 shadow-custom transition-all duration-500 ease-out"
     :class="{ 'translate-y-0 opacity-100': isVisible }"
   >
     <h2 class="mb-4 text-3xl font-bold text-gray-800">
