@@ -16,7 +16,7 @@ defineProps<Props>()
     <h2 class="mb-4 text-3xl font-bold text-gray-800">
       🎉 Winner!
     </h2>
-    <p class="gradient-text text-2xl font-semibold text-gray-600">
+    <p class="text-4xl font-semibold">
       {{ winner }}
     </p>
   </div>
