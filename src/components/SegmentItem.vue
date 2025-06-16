@@ -66,9 +66,9 @@ const handleColorChange = (event: Event): void => {
           name="segmentName"
           aria-label="Segment name"
           type="text"
-          class="flex-1 bg-transparent text-base font-medium text-gray-800 outline-none"
+          class="w-[95%] bg-transparent text-base font-medium text-gray-800 outline-none"
           :class="{
-            'border-b-2 border-gray-300 focus:border-wheel-primary': isEditing,
+            'w-full flex-1 rounded-xl border-2 border-gray-200 px-4 py-3 text-base transition-colors duration-300 focus:border-wheel-primary focus:outline-none disabled:cursor-not-allowed': isEditing,
             'cursor-default': !isEditing
           }"
           :readonly="!isEditing"
