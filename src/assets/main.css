@@ -56,3 +56,16 @@
     -webkit-text-fill-color: transparent;
   }
 }
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-2px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 0.5s ease-in-out infinite;
+}

@@ -1,9 +1,10 @@
 import { computed, ref } from "vue"
 
-import { MIN_SEGMENTS, FULL_CIRCLE } from "@/constants"
+import { MIN_SEGMENTS } from "@/constants"
 
 import type { Segment } from "@/types"
 
+const FULL_CIRCLE = 360
 const SPINNING_DURATION = 3000
 
 export const useSpin = (segments: Segment[]) => {

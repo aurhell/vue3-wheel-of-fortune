@@ -1,9 +1,7 @@
-export const FULL_CIRCLE = 360
-export const THREE_QUARTER_CIRCLE = 270
-export const HALF_CIRCLE = 180
-export const QUARTER_CIRCLE = 90
 export const MAX_SEGMENTS = 12
 export const MIN_SEGMENTS = 2
+
+export const DEFAULT_WHEEL_SIZE = 600
 
 export const DEFAULT_COLORS = [
   "#FF6B6B",

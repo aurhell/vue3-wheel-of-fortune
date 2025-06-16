@@ -18,6 +18,7 @@ const emit = defineEmits<Emits>()
 
 type Props = {
   segments: Segment[],
+  wheelSize?: number,
   withSpinButton?: boolean,
   withWinnerDisplay?: boolean,
   withControls?: boolean,
@@ -67,6 +68,7 @@ onMounted(() => {
   <div class="flex flex-col items-center justify-center gap-8 p-8">
     <SpinningWheel
       :segments="props.segments"
+      :size="props.wheelSize"
       :is-spinning="isSpinning"
     />
 
