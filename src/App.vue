@@ -2,19 +2,13 @@
 import { ref } from "vue"
 
 import WheelOfFortune from "./components/WheelOfFortune.vue"
+import { fibonacci } from "./presets"
 
 import type { Segment } from "./types"
 
 const wheelRef = ref<InstanceType<typeof WheelOfFortune> | null>(null)
 
-const segments = ref<Segment[]>([
-  { name: "Option 1" },
-  { name: "Option 2" },
-  { name: "Option 3" },
-  { name: "Option 4" },
-  { name: "Option 5" },
-  { name: "Option 6" },
-])
+const segments = ref<Segment[]>(fibonacci)
 
 const onWinner = (value: string): void => {
   if (value.trim() === "") return
