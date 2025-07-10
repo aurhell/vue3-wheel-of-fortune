@@ -58,9 +58,9 @@ const segmentsRef = ref(props.segments)
 const { onSegmentAdd, onSegmentRemove, onSegmentUpdateName, onSegmentUpdateColor } = useSegmentControls(segmentsRef)
 
 onMounted(() => {
-  console.info("[WheelOfFortune] To start the wheel manually, call the `spin` method on the component instance.")
-  console.info("[WheelOfFortune] Example: `wheelRef.value?.spin()`")
-  console.info("[WheelOfFortune] You can also use the `withSpinButton` prop to display a spin button.")
+  console.info("[Roue] To start the wheel manually, call the `spin` method on the component instance.")
+  console.info("[Roue] Example: `wheelRef.value?.spin()`")
+  console.info("[Roue] You can also use the `withSpinButton` prop to display a spin button.")
 })
 </script>
 

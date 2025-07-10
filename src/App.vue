@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue"
 
-import WheelOfFortune from "./components/WheelOfFortune.vue"
 import { fibonacci } from "./presets"
+import Roue from "./components/Roue.vue"
 
 import type { Segment } from "./types"
 
-const wheelRef = ref<InstanceType<typeof WheelOfFortune> | null>(null)
+const wheelRef = ref<InstanceType<typeof Roue> | null>(null)
 
 const segments = ref<Segment[]>(fibonacci)
 
@@ -20,10 +20,10 @@ const onWinner = (value: string): void => {
   <div class="min-h-screen bg-gradient-to-br from-wheel-primary to-wheel-secondary p-5 font-inter">
     <div class="mx-auto max-w-4xl">
       <h1 class="mb-8 text-center text-4xl font-bold text-white drop-shadow-lg md:text-5xl">
-        🎰 Wheel of fortune
+        🎰 Vue Roue
       </h1>
 
-      <WheelOfFortune
+      <Roue
         ref="wheelRef"
         :segments="segments"
         with-spin-button

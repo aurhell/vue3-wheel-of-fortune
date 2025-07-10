@@ -48,7 +48,7 @@ export default defineConfigWithVueTs(
       ],
       "vue/multi-word-component-names": [
         "warn",
-        { ignores: ["Tooltip"] },
+        { ignores: ["Roue", "Tooltip"] },
       ],
       "vue/no-restricted-component-options": [
         "error",
