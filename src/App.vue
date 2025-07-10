@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue"
 
-import { fibonacci } from "./presets"
 import Roue from "./components/Roue.vue"
+import { lunch } from "./presets"
 
 import type { Segment } from "./types"
 
 const wheelRef = ref<InstanceType<typeof Roue> | null>(null)
 
-const segments = ref<Segment[]>(fibonacci)
+const segments = ref<Segment[]>(lunch)
 
 const onWinner = (value: string): void => {
   if (value.trim() === "") return
