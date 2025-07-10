@@ -1,8 +1,18 @@
 {
-  "name": "wheel-of-fortune",
-  "version": "0.0.0",
+  "name": "vue-roue",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
+  "files": ["dist"],
+  "main": "./dist/vue-roue.umd.cjs",
+  "module": "./dist/vue-roue.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-roue.js",
+      "require": "./dist/vue-roue.umd.cjs"
+    },
+    "./style.css": "./dist/vue-roue.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
