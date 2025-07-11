@@ -66,6 +66,7 @@ const handleWinner = (value: string) => {
   <Roue
     ref="wheelRef"
     :segments="segments"
+    :wheel-size="450"
     with-spin-button
     with-winner-display
     with-controls
