@@ -57,6 +57,10 @@ import { lunch } from "vue-roue"
 const segments = lunch
 
 const wheelRef = ref()
+
+// To spin the wheel programmatically
+const spin = () => wheelRef.value?.spin()
+
 const handleWinner = (value: string) => {
   console.log("Winner is:", value)
 }
