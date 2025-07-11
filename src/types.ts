@@ -2,6 +2,6 @@
 export type HexColor = `#${string}`
 
 export type Segment = {
-  name: string;
-  color?: HexColor; // It's only possible to use hexadecimal colors, to be compatible with HTML color input
+  name: string
+  color?: HexColor // It's only possible to use hexadecimal colors, to be compatible with HTML color input
 }

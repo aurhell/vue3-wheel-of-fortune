@@ -108,9 +108,11 @@ wheelRef.value?.spin()
 
 ### 🧩 Types
 ```ts
+type HexColor = `#${string}`
+
 type Segment = {
   name: string
-  color: string
+  color?: HexColor
 }
 ```
 
