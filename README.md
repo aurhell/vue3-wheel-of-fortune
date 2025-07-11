@@ -25,7 +25,6 @@ A reusable and customizable **Vue 3** component to spin a wheel of fortune — p
   - T-shirt sizes (S, M, L, XL…)
   - Yes/No/Maybe
   - ...
-- 📱 Fully responsive — Adapts to all screen sizes out of the box
 
 ---
 
@@ -80,7 +79,7 @@ const handleWinner = (value: string) => {
 | Prop                | Type        | Default | Description                              |
 | ------------------- | ----------- | ------- | ---------------------------------------- |
 | `segments`          | `Segment[]` | —       | Required. List of segments to spin.      |
-| `wheelSize`         | `number`    | `300`   | Size of the wheel in pixels.             |
+| `wheelSize`         | `number`    | `600`   | Size of the wheel in pixels.             |
 | `withSpinButton`    | `boolean`   | `false` | Show a "SPIN" button under the wheel.    |
 | `withWinnerDisplay` | `boolean`   | `false` | Show the winner name below the wheel.    |
 | `withControls`      | `boolean`   | `false` | Show segment editing UI below the wheel. |
