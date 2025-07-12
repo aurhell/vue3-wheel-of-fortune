@@ -1,6 +1,6 @@
 # 🎡 Roue
 
-[![npm version](https://img.shields.io/npm/v/wheel-of-fortune.svg?style=flat-square)](https://www.npmjs.com/package/wheel-of-fortune)
+[![npm version](https://img.shields.io/npm/v/vue-roue.svg?style=flat-square)](https://www.npmjs.com/package/vue-roue)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Vue 3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://vuejs.org/)
 
